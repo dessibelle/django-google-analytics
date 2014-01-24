@@ -21,6 +21,9 @@ def do_get_analytics(parser, token):
     else:
         raise template.TemplateSyntaxError, "%r cannot take more than one argument" % tag_name
 
+    if not code and settings.GOOGLE_ANALYTICS_KEY:
+        code = settings.GOOGLE_ANALYTICS_KEY
+
     if not code:
         current_site = Site.objects.get_current()
     else:
