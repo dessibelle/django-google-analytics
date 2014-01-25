@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.sites.models import Site
 
 from django.template import Context, loader
+import re
 
 
 register = template.Library()
@@ -27,6 +28,7 @@ def do_get_analytics(parser, token):
     if not code:
         current_site = Site.objects.get_current()
     else:
+        code = re.sub(r'^["\']|["\']$', '', code)
         current_site = None
 
     return AnalyticsNode(current_site, code, template_name)
